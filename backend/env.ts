@@ -7,7 +7,8 @@ const path = resolve(process.cwd(), '.env')
 dotenv.config({ path })
 
 type EnvVars = {
-  VITE_SOCKETT: string
+  VITE_SOCKET: string
+  VITE_ENV: string
 }
 
 type AnyOtherKey<T extends { [k: string]: any }> = T &

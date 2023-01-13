@@ -86,7 +86,7 @@ wss.on('connection', ws => {
 // Only serve index.html in production.
 // In development, a dev server is provided by vite
 if (env.NODE_ENV?.match(/prod/i)) {
-  app.use(express.static(path.join(__dirname, '../../dist')))
+  app.use('/connect-four', express.static(path.join(__dirname, '../../dist')))
 }
 
 // Always serve the base server since it does the websocket

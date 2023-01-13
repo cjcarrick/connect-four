@@ -31,12 +31,6 @@ defineProps<{
 </template>
 
 <style lang="scss" scoped>
-.team,
-.player {
-  color: white;
-  font-weight: bold;
-}
-
 i {
   font-weight: normal;
   // font-style: normal;
@@ -51,10 +45,19 @@ i {
   font-size: 0.65rem;
   border-radius: $br * 0.5;
 
-  outline-offset: 0;
-  &.active {
-    outline: rgba($color: white, $alpha: 0.8) solid $gap;
-    outline-offset: $gap;
+  position: relative;
+  &.active::before {
+    $offset: 0.15rem;
+    $border: 0.15rem;
+
+    content: '';
+    position: absolute;
+    top: -$offset - $border;
+    left: -$offset - $border;
+    bottom: -$offset - $border;
+    right: -$offset - $border;
+    border: $border solid white;
+    border-radius: $br;
   }
 }
 .teams {

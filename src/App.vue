@@ -5,8 +5,8 @@ import HeaderLogo from './components/HeaderLogo.vue'
 <template>
   <div class="stack">
     <!-- Having the header here allows a smooth transition when the min class is added or removed -->
-    <router-link to="/" class="home-button">
-      <HeaderLogo :class="{ min: $route.path !== '/' }" />
+    <router-link to="/connect-four" class="home-button">
+      <HeaderLogo :class="{ min: $route.name !== 'home' }" />
     </router-link>
 
     <router-view />
@@ -14,7 +14,7 @@ import HeaderLogo from './components/HeaderLogo.vue'
     <a
       href="https://www.github.com/cjcarrick/connect-four"
       class="link"
-      v-if="$route.path == '/'"
+      v-if="$route.path == '/connect-four'"
     >
       Source
     </a>
