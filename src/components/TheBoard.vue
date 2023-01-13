@@ -1,0 +1,197 @@
+<script setup lang="ts">
+import { teamName } from 'lib/util'
+import type { BoardData } from 'lib/ws'
+import { ref } from 'vue'
+
+const props = defineProps<{
+  board: BoardData
+  turn: number
+  teamId: number
+  winner: number | null
+}>()
+const emit = defineEmits(['place'])
+
+const ourTurn = () => props.turn == props.teamId && props.winner == null
+
+const hoveredColumn = ref<undefined | number>(undefined)
+
+const fallDuration = ref(0)
+const pieceBounceSize = ref(0)
+
+const board = ref<null | HTMLDivElement>()
+const piece = ref<null | HTMLDivElement>()
+
+function drop() {
+  if (!board.value || !piece.value) return
+
+  // Determine what row the piece will be droppped into
+  // Row 0 is at the top
+  let rowNum =
+    hoveredColumn.value == undefined
+      ? undefined
+      : avalibleRow(hoveredColumn.value)
+
+  if (rowNum == undefined) {
+    console.warn('coulndt drop, unknown hovered column.')
+    return
+  }
+
+  // Determine how mnay pixels the piece needs to fall
+
+  const boardHeight = board.value.clientHeight
+  const diff = board.value.offsetTop - piece.value.offsetTop
+  const boardBorder = 8
+
+  pieceBounceSize.value =
+    diff + (boardHeight / props.board.rows) * rowNum + boardBorder * 2
+
+  // Determine how long the fall will take
+
+  // .17 is an arbitrary number that I just thought looked about right
+  fallDuration.value = rowNum * 0.17
+
+  setTimeout(() => {
+    emit('place', hoveredColumn.value, rowNum, props.teamId)
+    fallDuration.value = 0
+  }, fallDuration.value * 1000)
+}
+
+function avalibleRow(x: number) {
+  const column = [...props.board.pieces[x]].reverse()
+  const i = column.findIndex(a => a == null)
+
+  const res = i == -1 ? undefined : props.board.rows - 1 - i
+  return res || 0
+}
+</script>
+
+<template>
+  <div class="game">
+    <div
+      ref="piece"
+      class="piece"
+      :class="{ animated: fallDuration, [`${teamName(teamId)}`]: ourTurn() }"
+      :style="{
+        '--col': hoveredColumn,
+        '--bounceSize': `${pieceBounceSize}px`,
+        animationDuration: `${fallDuration}s`
+      }"
+    ></div>
+
+    <div class="board" ref="board">
+      <div v-for="(row, x) in props.board.pieces" :key="x" class="column">
+        <div
+          v-for="(filled, y) in row"
+          :key="`${x}-${y}`"
+          class="hole"
+          :class="{
+            [`${filled !== null && teamName(filled)}`]: filled !== null,
+            hovered:
+              filled == null &&
+              ourTurn() &&
+              hoveredColumn == x &&
+              avalibleRow(x) == y &&
+              !fallDuration
+          }"
+          @click="drop"
+          @mouseover="() => !fallDuration && (hoveredColumn = x)"
+        ></div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<style lang="scss" scoped>
+$pad: Min(2vw, 2vh);
+$br: Min(5vw, 5vh);
+$holeDiameter: 0.85;
+$pieceRim: Min(1vw, 1vh);
+$gridSize: Min(10vw, 10vh);
+$boardCol: $blue;
+
+@mixin pieceFill($col) {
+  background: radial-gradient(
+    $col calc($gridSize * $holeDiameter * 0.5 - $pieceRim),
+    dark($col) calc($gridSize * $holeDiameter * 0.5 - $pieceRim)
+  );
+}
+
+// Ensure the board is always drawn on top of the piece
+.piece {
+  position: relative;
+  z-index: 9;
+}
+
+.board {
+  position: relative;
+  z-index: 10;
+}
+
+.piece {
+  margin-left: calc(
+    (var(--col)) * $gridSize + $pad + (1 - $holeDiameter) * 0.5 * $gridSize
+  );
+  border-radius: 1000px;
+  margin-bottom: $pad;
+  width: calc($gridSize * $holeDiameter);
+  height: calc($gridSize * $holeDiameter);
+  // transition: margin-left 0.15s ease-in-out;
+
+  &.animated {
+    animation: bounce 0s linear 0ms infinite;
+  }
+
+  &.Yellow {
+    @include pieceFill($yellow);
+  }
+  &.Red {
+    @include pieceFill($red);
+  }
+}
+
+.game {
+  // align-self: stretch;
+  width: fit-content;
+}
+.board {
+  // width: auto;
+  overflow: hidden;
+  border-radius: $br;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  border: $pad solid $blue;
+
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.hole {
+  width: $gridSize;
+  height: $gridSize;
+
+  &.Yellow {
+    @include pieceFill($yellow);
+  }
+  &.Red {
+    @include pieceFill($red);
+  }
+  &.hovered {
+    @include pieceFill(rgba(gray, 0.5));
+  }
+
+  position: relative;
+  overflow: hidden;
+  &:after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    width: $holeDiameter * 100%;
+    height: $holeDiameter * 100%;
+    border: 1000px solid $boardCol;
+  }
+}
+</style>
