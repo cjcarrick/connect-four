@@ -1,12 +1,12 @@
-<p align="center"> Connect Four </p>
+<h1 align="center"> Connect Four </h1>
 
 <p align="center"> The game where you try to get 4 pieces in a row. </p>
 
 <p align="center"> <a href="https://cjcarrick.github.io/connect-four> Demo </a> </p>
 
 <p float="left">
-  <img src="/preview/HomeView.png" width="100" />
-  <img src="/preview/LocalView.png" width="100" />
+  <img src="/preview/HomeView.png" width="500" />
+  <img src="/preview/LocalView.png" width="500" />
 </p>
 
 ### Local Matches
