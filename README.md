@@ -1,8 +1,13 @@
-# Connect Four
+<p align="center"> Connect Four </p>
 
-The game where you try to get 4 pieces in a row.
+<p align="center"> The game where you try to get 4 pieces in a row. </p>
 
-[Demo](https://cjcarrick.github.io/connect-four)
+<p align="center"> <a href="https://cjcarrick.github.io/connect-four> Demo </a> </p>
+
+<p float="left">
+  <img src="/preview/HomeView.png" width="100" />
+  <img src="/preview/LocalView.png" width="100" />
+</p>
 
 ### Local Matches
 
@@ -26,13 +31,13 @@ avalible statically hosted sites.
 
 Especially with the multiplayer, I made lots of "bad" decisions for the sake of
 fun-ness. You can join any team in any match without any passwords. Multiplayer
-match ids are generated sequentially,* so hop on match 0 and there will probably
+match ids are generated sequentially,\* so hop on match 0 and there will probably
 already be some action. You can even join a team with the same username as
 someone already on that team, and you will both control the same player.
 
-\* *Match ids are generated sequentially when no match id is provided. If you
+\* _Match ids are generated sequentially when no match id is provided. If you
 want a "private" game, just pick a super secret number for the match id that no
-one would ever guess.*
+one would ever guess._
 
 ## Running locally
 
@@ -82,7 +87,6 @@ It also has methods for placing pieces and event listeners for common events lik
 players joining or turns changing.
 
 The server has a match list, which is just an array of matches. When a user
-requests a match, they're put on whichever match needs players the most. I'm not 
+requests a match, they're put on whichever match needs players the most. I'm not
 sure if there's a safer way to do this, but I guess I'll find out the hard way
 eventually.
-
