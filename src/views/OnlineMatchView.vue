@@ -13,7 +13,7 @@ import AlertMessage from 'src/components/AlertMessage.vue'
 import PlayerList from 'src/components/PlayerList.vue'
 import TheBoard from 'src/components/TheBoard.vue'
 import { inject, ref, watch } from 'vue'
-import { onBeforeRouteLeave, onBeforeRouteUpdate, useRoute } from 'vue-router'
+import { onBeforeRouteLeave, useRoute } from 'vue-router'
 
 const error = ref('')
 

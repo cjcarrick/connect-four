@@ -1,4 +1,3 @@
-
 <script setup lang="ts">
 import confetti from 'canvas-confetti'
 import Match from 'lib/match'
@@ -29,7 +28,7 @@ watch(turn, (oldValue, newValue) => {
   if (oldValue == 1 && newValue == 0) {
     setTimeout(
       () => winner.value == null && cpuPlacePiece(),
-      850 + Math.random() * 1500
+      250 + Math.random() * 500
     )
   }
 })
@@ -38,6 +37,9 @@ watch(turn, (oldValue, newValue) => {
 watch(winner, (newVal, oldVal) => {
   if (newVal == 0 && oldVal == null) {
     confetti({ origin: { y: 1 }, zIndex: 50 })
+  }
+  if (newVal == null && oldVal == 0) {
+    cpuPlacePiece()
   }
 })
 

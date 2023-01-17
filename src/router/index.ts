@@ -5,27 +5,39 @@ import LocalMatchView from '../views/LocalMatchView.vue'
 import MatchmakingView from '../views/MatchmakingView.vue'
 import OnlineMatchView from '../views/OnlineMatchView.vue'
 
+// Redirects are needed for Github Pages hosting
+
 const routes: RouteRecordRaw[] = [
+  { path: '/', redirect: { name: 'home' } },
   {
-    path: '/connect-four',
+    path: '/connect-four/',
     name: 'home',
     component: HomeView
   },
+
+  { path: '/cpu', redirect: { name: 'cpu' } },
   {
     path: '/connect-four/cpu',
     name: 'cpu',
     component: CpuMatchView
   },
+
+  { path: '/local', redirect: { name: 'local' } },
   {
     path: '/connect-four/local',
     name: 'local',
     component: LocalMatchView
   },
+
+  { path: '/matchmake', redirect: { name: 'matchmake' } },
   {
-    path: '/conenct-four/matchmake',
+    path: '/connect-four/matchmake',
     name: 'matchmake',
     component: MatchmakingView
   },
+
+  { path: '/online/:gameId/:teamId/:userId', redirect: { name: 'online' } },
+
   {
     path: '/connect-four/online/:gameId/:teamId/:userId',
     name: 'online',

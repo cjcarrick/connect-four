@@ -138,7 +138,8 @@ $boardCol: $blue;
   // transition: margin-left 0.15s ease-in-out;
 
   &.animated {
-    animation: bounce 0s linear 0ms infinite;
+    animation: bounce 0s linear 0ms 1;
+    animation-fill-mode: forwards;
   }
 
   &.Yellow {

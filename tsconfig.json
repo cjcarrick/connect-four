@@ -10,19 +10,14 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "esModuleInterop": true,
-    "lib": [
-      "ESNext",
-      "DOM"
-    ],
+    "lib": ["ESNext", "DOM"],
     "skipLibCheck": true,
     "noEmit": true,
     "build": true,
     // Allow imports from `lib`
     "baseUrl": ".",
     "paths": {
-      "lib": [
-        "./lib/"
-      ]
+      "lib": ["./lib/"]
     }
   },
   "include": [

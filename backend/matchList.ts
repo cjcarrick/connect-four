@@ -23,46 +23,46 @@ export default class MatchList {
     gameId?: number,
     userId?: string
   ) => {
-      if (this.games.length == 0) {
-        return false
-      }
-
-      // Recommend the team that has the least amount of players
-      // TODO: Improve this to allow searching through more than just 2 teams, in
-      // case multi-team modes are ever added
-
-      if (gameId !== undefined) {
-        const teamId = this.games[gameId].pickTeam()
-        return { teamId, gameId }
-      }
-
-      // Find game that needs one player
-
-      const weNeedYou = this.games.find(a => a?.needSomeone(userId))
-      if (weNeedYou) {
-        return this.findATeam(weNeedYou.gameId)
-      }
-
-      // Find the team with the least amount of players
-
-      const least = [...this.games]
-        .filter(a =>
-          userId ? a.players.teams.find(t => t.find(p => p == userId)) : true
-        )
-        .sort(
-          (a, b) =>
-            b.players[0].length +
-            b.players[1].length -
-            a.players[0].length -
-            b.players[1].length
-        )[0]
-
-      if (least) {
-        return this.findATeam(least.gameId)
-      }
-
+    if (this.games.length == 0) {
       return false
     }
+
+    // Recommend the team that has the least amount of players
+    // TODO: Improve this to allow searching through more than just 2 teams, in
+    // case multi-team modes are ever added
+
+    if (gameId !== undefined) {
+      const teamId = this.games[gameId].pickTeam()
+      return { teamId, gameId }
+    }
+
+    // Find game that needs one player
+
+    const weNeedYou = this.games.find(a => a?.needSomeone(userId))
+    if (weNeedYou) {
+      return this.findATeam(weNeedYou.gameId)
+    }
+
+    // Find the team with the least amount of players
+
+    const least = [...this.games]
+      .filter(a =>
+        userId ? !!a?.players.teams.find(t => t.find(p => p == userId)) : true
+      )
+      .sort(
+        (a, b) =>
+          b.players[0].length +
+          b.players[1].length -
+          a.players[0].length -
+          b.players[1].length
+      )[0]
+
+    if (least) {
+      return this.findATeam(least.gameId)
+    }
+
+    return false
+  }
 
   /** adds a player to a team, and lets everyone in the game know about the new
    * teams */

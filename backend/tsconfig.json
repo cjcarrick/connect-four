@@ -11,13 +11,8 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "esModuleInterop": true,
-    "lib": [
-      "ESNext",
-      "DOM"
-    ],
+    "lib": ["ESNext", "DOM"],
     "skipLibCheck": true
   },
-  "files": [
-    "./index.ts"
-  ]
+  "files": ["./index.ts"]
 }

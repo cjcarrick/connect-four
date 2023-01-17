@@ -16,7 +16,7 @@ const router = useRouter()
 const matchmake = () =>
   userId.value &&
   router.push({
-    path: '/connect-four/matchmake',
+    path: '/matchmake',
     query: { userId: userId.value, teamId: teamId.value, gameId: gameId.value }
   })
 </script>
@@ -48,8 +48,8 @@ const matchmake = () =>
       </button>
     </template>
 
-    <router-link class="button" to="/connect-four/local">Play Locally</router-link>
-    <router-link class="button" to="/connect-four/cpu">Play vs CPU</router-link>
+    <router-link class="button" to="/local">Play Locally</router-link>
+    <router-link class="button" to="/cpu">Play vs CPU</router-link>
   </div>
 </template>
 

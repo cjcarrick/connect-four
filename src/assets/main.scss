@@ -31,6 +31,10 @@ svg {
   height: 1em;
 }
 
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
 @mixin badge {
   border-radius: $br;
   overflow: hidden;
@@ -108,4 +112,3 @@ input {
     opacity: 0.2;
   }
 }
-
