@@ -9,6 +9,14 @@
   <img src="/preview/LocalView.png" width="500" />
 </p>
 
+<hr />
+
+*The Github Pages demo might not work perfectly. A lot of the functionality
+(especially in online matches) is provided by a NodeJS server, which Github Pages
+doesn't provide.*
+
+<hr />
+
 ### Local Matches
 
 Take turns placing pieces with someone else. Works on one computer, without any
