@@ -2,7 +2,7 @@
 
 <p align="center"> The game where you try to get 4 pieces in a row. </p>
 
-<p align="center"> <a href="https://cjcarrick.github.io/connect-four> Demo </a> </p>
+<p align="center"> <a href="https://cjcarrick.github.io/connect-four"> Demo </a> </p>
 
 <p float="left">
   <img src="/preview/HomeView.png" width="500" />
